@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import 'dotenv/config';
 import router from './router';
 import logger from './logger';
@@ -8,6 +9,7 @@ let app = express();
 app.use(bodyParser.json());
 let port = process.env.PORT || 8080;
 
+app.use(cors());
 
 const handleNotFound = (req, res, next) => {
   let err = new Error('Not Found');
@@ -32,7 +34,7 @@ app.use(handleError);
 app.listen(port, (err) => {
   if (err) {
     logger.error(err.toString());
-    return console.log('something bad happened...', err)
+    return
   }
-  console.log(`app is running at port ${port}`)
+  logger.info(`app is running at port ${port}`)
 });
