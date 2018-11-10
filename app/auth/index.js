@@ -9,7 +9,7 @@ const url = `${BASE_URL}/auth`;
 const parseAuth = (response) => {
   const headers = response.headers['set-cookie'];
   const cookie = headers[0];
-  const loadbalancer = headers[2];
+  const loadBalancer = headers[2];
 
   const data = response.data;
   const user = {
@@ -36,7 +36,7 @@ const parseAuth = (response) => {
 
   return {
     cookie,
-    loadbalancer,
+    loadBalancer,
     user,
     alias,
   };
