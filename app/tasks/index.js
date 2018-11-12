@@ -54,9 +54,11 @@ const getTasks = async (req, res, next) => {
       const tasks = await parseTasks(response.data.rows);
       res.status(200).json(tasks);
     }
-  } catch (error) {
-    logger.error(error);
-    next(error);
+  } catch (err) {
+    if (err.toString() === constants.STATUS_401) {
+      err.status = 401;
+    }
+    next(err);
   }
 };
 export default getTasks;

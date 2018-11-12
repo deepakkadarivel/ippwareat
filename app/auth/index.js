@@ -56,7 +56,6 @@ const login = async (req, res, next) => {
       res.status(200).json(auth);
     }
   } catch (error) {
-    logger.error(error);
     next(error);
   }
 };
