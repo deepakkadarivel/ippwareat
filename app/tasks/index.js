@@ -1,15 +1,16 @@
-import axios from 'axios';
-import logger from '../logger';
+import axios from "axios";
+import logger from "../logger";
 import constants from "../constants";
 
 const BASE_URL = process.env.BASE_URL;
 
 const url = `${BASE_URL}mtask`;
 
-const parseTasks = (tasks) => {
+const parseTasks = tasks => {
   return tasks.map(task => {
     return {
       workflowTypeName: task.workflowTypeName,
+      workflowTypeId: task.workflowTypeId,
       supplierName: task.supplierName,
       stageName: task.stageName,
       contractNo: task.contractNo,
@@ -28,20 +29,20 @@ const parseTasks = (tasks) => {
       claimRequestNo: task.claimRequestNo,
       createdDate: task.createdDate,
       dueDateString: task.dueDateString,
-      status: task.status,
-    }
+      status: task.status
+    };
   });
 };
 
 const getTasks = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const {cookie, loadBalancer, payload} = req.body;
+    const { cookie, loadBalancer, payload } = req.body;
 
     const config = {
-      "headers": {
+      headers: {
         "Content-Type": "application/json",
-        "Cookie": cookie,
+        Cookie: cookie
       }
     };
 
