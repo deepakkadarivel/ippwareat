@@ -4,7 +4,7 @@ import constants from "../constants";
 
 const BASE_URL = process.env.BASE_URL;
 
-const url = `${BASE_URL}mtask`;
+const url = `${BASE_URL}mpurchase`;
 
 const parseTasks = tasks => {
   return tasks.map(task => {
@@ -14,13 +14,10 @@ const parseTasks = tasks => {
       supplierName: task.supplierName,
       stageName: task.stageName,
       contractNo: task.contractNo,
-      companyId: task.companyId,
       contractOwner: task.contractOwner,
       requestedBy: task.requestedBy,
       poRequestNo: task.poRequestNo,
-      poRequestId: task.poRequestId,
       poNo: task.poNo,
-      poParentId: task.poParentId,
       pickUpRequestNo: task.pickUpRequestNo,
       invoiceNo: task.invoiceNo,
       assetRequestNo: task.assetRequestNo,
@@ -37,26 +34,30 @@ const parseTasks = tasks => {
   });
 };
 
-const getTasks = async (req, res, next) => {
+const getPO = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
     const { cookie, loadBalancer, payload } = req.body;
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        Cookie: cookie
+        name: 'content-type',
+        value: 'application/x-www-form-urlencoded',
+        Cookie: cookie,
       }
     };
 
     const response = await axios.post(url, payload, config);
-    if (!response.data.rows) {
+
+    if (!response.data) {
       let err = new Error(constants.INVALID_USER);
       err.status = 401;
       next(err);
     } else {
-      const tasks = await parseTasks(response.data.rows);
-      res.status(200).json(tasks);
+      // const tasks = await parseTasks(response.data);
+      // const tasks = {};
+      // res.status(200).json(tasks);
+      res.status(200).json(response.data);
     }
   } catch (err) {
     if (err.toString() === constants.STATUS_401) {
@@ -65,4 +66,4 @@ const getTasks = async (req, res, next) => {
     next(err);
   }
 };
-export default getTasks;
+export default getPO;
