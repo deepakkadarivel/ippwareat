@@ -26,6 +26,7 @@ const parseTasks = tasks => {
       pickUpRequestNo: task.pickUpRequestNo,
       invoiceRequestId: task.invoiceRequestId,
       invoiceNo: task.invoiceNo,
+      assetId: task.assetId,
       assetRequestNo: task.assetRequestNo,
       customerPONo: task.customerPONo,
       customerInvoiceNo: task.customerInvoiceNo,
