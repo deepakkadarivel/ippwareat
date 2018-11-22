@@ -2,6 +2,7 @@ import express from 'express';
 import login from './auth';
 import getTasks from './tasks';
 import getPO from './tasks/po';
+import getPickUp from "./tasks/pickUp";
 const router = express.Router();
 
 const getAppStatus = (req, res) => {
@@ -15,5 +16,6 @@ router.get('/', getAppStatus);
 router.post('/login', login);
 router.post('/tasks', getTasks);
 router.post('/po', getPO);
+router.post('/pickUp', getPickUp);
 
 module.exports = router;

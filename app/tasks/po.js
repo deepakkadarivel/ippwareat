@@ -4,7 +4,7 @@ import constants from "../constants";
 
 const BASE_URL = process.env.BASE_URL;
 
-const url = `${BASE_URL}mpurchase`;
+const url = `${BASE_URL}${constants.url.PO}`;
 
 const parseTasks = tasks => {
   return tasks.map(task => {
