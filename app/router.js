@@ -3,6 +3,7 @@ import login from './auth';
 import getTasks from './tasks';
 import getPO from './tasks/po';
 import getPickUp from "./tasks/pickUp";
+import getInvoice from "./tasks/invoice";
 const router = express.Router();
 
 const getAppStatus = (req, res) => {
@@ -17,5 +18,6 @@ router.post('/login', login);
 router.post('/tasks', getTasks);
 router.post('/po', getPO);
 router.post('/pickUp', getPickUp);
+router.post('/invoice', getInvoice);
 
 module.exports = router;

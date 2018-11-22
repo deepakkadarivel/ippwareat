@@ -5,5 +5,6 @@ export default {
   url: {
     PO: 'mpurchase',
     PICK_UP: 'minventory',
+    INVOICE: 'minvoice',
   }
 };
