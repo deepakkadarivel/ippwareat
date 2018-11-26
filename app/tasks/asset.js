@@ -73,7 +73,63 @@ const parseAsset = asset => {
         value: asset.returnDate,
         readOnly: true,
       },
-    ]
+    ],
+    assetLineItems: asset.assetTracking.assetLineItems.map((x, y) => {
+      return {
+        header: {
+          label: 'Item',
+          id: 'itemDescription',
+          name: 'itemDescription',
+          maxlength: '50',
+          placeholder: '',
+          type: 'text',
+          value: x.itemDescription,
+          readOnly: true,
+        },
+        lines: [
+          {
+            label: 'Line Item',
+            id: 'lineItemId',
+            name: 'lineItemId',
+            maxlength: '50',
+            placeholder: y,
+            type: 'text',
+            value: (y + 1).toString(),
+            readOnly: true,
+          },
+          {
+            label: 'Item #',
+            id: 'itemNo',
+            name: 'itemNo',
+            maxlength: '50',
+            placeholder: '',
+            type: 'text',
+            value: x.itemNo,
+            readOnly: true,
+          },
+          {
+            label: 'UOM',
+            id: 'uom',
+            name: 'uom',
+            maxlength: '50',
+            placeholder: '',
+            type: 'text',
+            value: x.uom,
+            readOnly: true,
+          },
+          {
+            label: 'Qty',
+            id: 'qty',
+            name: 'qty',
+            maxlength: '50',
+            placeholder: '',
+            type: 'text',
+            value: x.qty,
+            readOnly: false,
+          },
+        ]
+      }
+    }),
   }
 };
 
