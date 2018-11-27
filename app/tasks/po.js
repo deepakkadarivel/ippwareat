@@ -258,6 +258,87 @@ const parsePo = po => {
         ]
       }
     }),
+    prices: [
+      {
+        label: 'Total NetPrice',
+        id: 'poTotalNetPrice',
+        name: 'poTotalNetPrice',
+        maxlength: '50',
+        placeholder: 'Net Price',
+        type: 'text',
+        value: '',
+        readOnly: true,
+        variant:"outlined",
+      },
+      {
+        label: 'Total Tax',
+        id: 'poTotalTax',
+        name: 'poTotalTax',
+        maxlength: '50',
+        placeholder: 'Sub Total',
+        type: 'text',
+        value: '',
+        readOnly: true,
+        variant:"outlined",
+      },
+      {
+        label: 'Grand Total',
+        id: 'totalAmount',
+        name: 'poGrandTotal',
+        maxlength: '50',
+        placeholder: 'Grand Total',
+        type: 'text',
+        value: '',
+        readOnly: true,
+        variant:"outlined",
+      },
+    ],
+    footer: [
+      {
+        label: 'Advance Payment %',
+        id: 'advancePayment',
+        name: 'advancePayment',
+        maxlength: '50',
+        placeholder: 'Advance Payment',
+        type: 'text',
+        value: po.advancePayment,
+        readOnly: true,
+        variant:"outlined",
+      },
+      {
+        label: 'Terms',
+        id: 'terms',
+        name: 'terms',
+        maxlength: '50',
+        placeholder: 'Advance Payment',
+        type: 'textArea',
+        value: po.terms,
+        readOnly: true,
+        variant:"outlined",
+      },
+      {
+        label: 'Payment Terms',
+        id: 'paymentTerms',
+        name: 'paymentTerms',
+        maxlength: '50',
+        placeholder: 'Payment Terms',
+        type: 'textArea',
+        value: po.paymentTerms,
+        readOnly: true,
+        variant:"outlined",
+      },
+      {
+        label: 'Comments',
+        id: 'comments',
+        name: 'comments',
+        maxlength: '50',
+        placeholder: 'Comments',
+        type: 'textArea',
+        value: po.comments,
+        readOnly: true,
+        variant:"outlined",
+      },
+    ],
     entityId: po.entityId,
     viewId: po.viewId,
     workflowId: po.workflowId,
@@ -287,8 +368,9 @@ const getPO = async (req, res, next) => {
       next(err);
     } else {
       const po = await parsePo(response.data);
-      // logger.info(JSON.stringify(po));
+      logger.info(JSON.stringify(po));
       res.status(200).json(po);
+      // res.status(200).json(response.data);
     }
   } catch (err) {
     if (err.toString() === constants.STATUS_401) {

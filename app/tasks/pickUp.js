@@ -173,6 +173,19 @@ const parsePickUp = pickUp => {
         ]
       }
     }),
+    footer: [
+      {
+        label: 'Comments',
+        id: 'comments',
+        name: 'comments',
+        maxlength: '50',
+        placeholder: 'Comments',
+        type: 'textArea',
+        value: pickUp.comments,
+        readOnly: true,
+        variant:"outlined",
+      },
+    ],
     entityId: pickUp.entityId,
     toEntityId: pickUp.toEntityId,
     wareHouse: pickUp.pickUpItem.wareHouse,

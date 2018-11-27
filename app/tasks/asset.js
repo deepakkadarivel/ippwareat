@@ -130,6 +130,19 @@ const parseAsset = asset => {
         ]
       }
     }),
+    footer: [
+      {
+        label: 'Comments',
+        id: 'comments',
+        name: 'comments',
+        maxlength: '50',
+        placeholder: 'Comments',
+        type: 'textArea',
+        value: asset.comments,
+        readOnly: true,
+        variant:"outlined",
+      },
+    ],
   }
 };
 
