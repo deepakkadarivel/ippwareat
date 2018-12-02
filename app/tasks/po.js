@@ -120,179 +120,21 @@ const parsePo = po => {
     ],
     poLineItems: po.poLineItems.map((x, y) => {
       return {
-        header: {
-          label: 'Item',
-          id: 'itemDescription',
-          name: 'itemDescription',
-          maxlength: '50',
-          placeholder: '',
-          type: 'text',
-          value: x.itemDescription,
-          readOnly: true
-        },
-        lines: [
-          {
-            label: 'Line Item',
-            id: 'lineItemId',
-            name: 'lineItemId',
-            maxlength: '50',
-            placeholder: y,
-            type: 'text',
-            value: (y + 1).toString(),
-            readOnly: true
-          },
-          {
-            label: 'Category',
-            id: 'categoryDesc',
-            name: 'categoryDesc',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.categoryDesc,
-            readOnly: true
-          },
-          {
-            label: 'Sub Category',
-            id: 'subCategoryDesc',
-            name: 'subCategoryDesc',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.subCategoryDesc,
-            readOnly: true
-          },
-          {
-            label: 'Received Qty',
-            id: 'receivedQty',
-            name: 'receivedQty',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.receivedQty.toString(),
-            readOnly: true
-          },
-          {
-            label: 'UOM',
-            id: 'uom',
-            name: 'uom',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.uom,
-            readOnly: true
-          },
-          {
-            label: 'Net Price',
-            id: 'netPrice',
-            name: 'netPrice',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.netPrice,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'SGST %',
-            id: 'sgst',
-            name: 'sgst',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.sgst,
-            readOnly: true
-          },
-          {
-            label: 'CGST %',
-            id: 'cgst',
-            name: 'cgst',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.cgst,
-            readOnly: true
-          },
-          {
-            label: 'Tax',
-            id: 'tax',
-            name: 'tax',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.tax,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'Total',
-            id: 'totalAmount',
-            name: 'totalAmount',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.totalAmount,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'Unit Price',
-            id: 'price',
-            name: 'price',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.price,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'Qty',
-            id: 'quantity',
-            name: 'quantity',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.quantity,
-            readOnly: false
-          }
-        ]
+        header: x.itemDescription,
+        lineItemId: (y + 1).toString(),
+        categoryDesc: x.categoryDesc,
+        subCategoryDesc: x.subCategoryDesc,
+        receivedQty: x.receivedQty.toString(),
+        uom: x.uom,
+        netPrice: x.netPrice,
+        sgst: x.sgst,
+        cgst: x.cgst,
+        tax: x.tax,
+        totalAmount: x.totalAmount,
+        price: x.price,
+        quantity: x.quantity
       };
     }),
-    prices: [
-      {
-        label: 'Total NetPrice',
-        id: 'poTotalNetPrice',
-        name: 'poTotalNetPrice',
-        maxlength: '50',
-        placeholder: 'Net Price',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Total Tax',
-        id: 'poTotalTax',
-        name: 'poTotalTax',
-        maxlength: '50',
-        placeholder: 'Sub Total',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Grand Total',
-        id: 'totalAmount',
-        name: 'poGrandTotal',
-        maxlength: '50',
-        placeholder: 'Grand Total',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      }
-    ],
     footer: [
       {
         label: 'Advance Payment %',
