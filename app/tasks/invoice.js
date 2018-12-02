@@ -1,6 +1,6 @@
-import axios from "axios";
-import logger from "../logger";
-import constants from "../constants";
+import axios from 'axios';
+import logger from '../logger';
+import constants from '../constants';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -17,7 +17,7 @@ const parseInvoice = invoice => {
         placeholder: 'Entity',
         type: 'text',
         value: invoice.entityName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'PO Type',
@@ -27,7 +27,7 @@ const parseInvoice = invoice => {
         placeholder: 'PO',
         type: 'text',
         value: 'PO',
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Invoice #',
@@ -37,7 +37,7 @@ const parseInvoice = invoice => {
         placeholder: 'Invoice #',
         type: 'text',
         value: invoice.invoice.invoiceNo,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Invoice Date',
@@ -47,7 +47,7 @@ const parseInvoice = invoice => {
         placeholder: 'Invoice Date',
         type: 'text',
         value: invoice.invoiceDate,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Workflow',
@@ -57,7 +57,7 @@ const parseInvoice = invoice => {
         placeholder: 'Workflow',
         type: 'text',
         value: invoice.workflowName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Supplier',
@@ -67,7 +67,7 @@ const parseInvoice = invoice => {
         placeholder: 'Supplier',
         type: 'text',
         value: invoice.supplierName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'PO',
@@ -77,7 +77,7 @@ const parseInvoice = invoice => {
         placeholder: 'PO',
         type: 'text',
         value: invoice.invoice.invoiceLineItems[0].poNo,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Payment Terms(Days)',
@@ -87,7 +87,7 @@ const parseInvoice = invoice => {
         placeholder: 'Payment Terms(Days)',
         type: 'text',
         value: invoice.paymentDays,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Credit Notes',
@@ -96,8 +96,8 @@ const parseInvoice = invoice => {
         type: 'select',
         value: invoice.creditNotes,
         readOnly: true,
-        options: [],
-      },
+        options: []
+      }
     ],
     invoiceLineItems: invoice.invoice.invoiceLineItems.map((x, y) => {
       return {
@@ -109,7 +109,7 @@ const parseInvoice = invoice => {
           placeholder: '',
           type: 'text',
           value: x.itemDesc,
-          readOnly: true,
+          readOnly: true
         },
         lines: [
           {
@@ -120,7 +120,7 @@ const parseInvoice = invoice => {
             placeholder: y,
             type: 'text',
             value: (y + 1).toString(),
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'PO #',
@@ -130,7 +130,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.poNo,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Item #',
@@ -140,7 +140,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.itemNo,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Supplier',
@@ -150,7 +150,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.supplierName,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Supplier Part #',
@@ -160,7 +160,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.supplierPartNo,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Qty Ordered',
@@ -170,7 +170,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.qtyOrdered,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Qty Received',
@@ -180,7 +180,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.qty,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'UOM',
@@ -190,7 +190,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.uom,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Price',
@@ -201,7 +201,7 @@ const parseInvoice = invoice => {
             type: 'text',
             value: x.price,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'Net Price',
@@ -212,7 +212,7 @@ const parseInvoice = invoice => {
             type: 'text',
             value: x.netPrice,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'Discount',
@@ -222,7 +222,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.discount,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'SGST %',
@@ -232,7 +232,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.sgst,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'CGST %',
@@ -242,7 +242,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.cgst,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'IGST %',
@@ -252,7 +252,7 @@ const parseInvoice = invoice => {
             placeholder: '',
             type: 'text',
             value: x.igst,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Tax',
@@ -263,7 +263,7 @@ const parseInvoice = invoice => {
             type: 'text',
             value: x.taxAmt,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'Total',
@@ -274,10 +274,10 @@ const parseInvoice = invoice => {
             type: 'text',
             value: x.totalAmt,
             readOnly: true,
-            adornment: true,
-          },
+            adornment: true
+          }
         ]
-      }
+      };
     }),
     prices: [
       {
@@ -289,7 +289,7 @@ const parseInvoice = invoice => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Shipping & Handling Charges',
@@ -300,7 +300,7 @@ const parseInvoice = invoice => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Adjust',
@@ -311,7 +311,7 @@ const parseInvoice = invoice => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Discount',
@@ -322,7 +322,7 @@ const parseInvoice = invoice => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Grand Total',
@@ -333,8 +333,8 @@ const parseInvoice = invoice => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
-      },
+        variant: 'outlined'
+      }
     ],
     footer: [
       {
@@ -346,7 +346,7 @@ const parseInvoice = invoice => {
         type: 'textArea',
         value: invoice.paymentTerms,
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Comments',
@@ -357,10 +357,10 @@ const parseInvoice = invoice => {
         type: 'textArea',
         value: invoice.comments,
         readOnly: true,
-        variant:"outlined",
-      },
-    ],
-  }
+        variant: 'outlined'
+      }
+    ]
+  };
 };
 
 const getInvoice = async (req, res, next) => {
@@ -372,7 +372,7 @@ const getInvoice = async (req, res, next) => {
       headers: {
         name: 'content-type',
         value: 'application/x-www-form-urlencoded',
-        Cookie: cookie,
+        Cookie: cookie
       }
     };
 

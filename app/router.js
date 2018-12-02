@@ -2,16 +2,16 @@ import express from 'express';
 import login from './auth';
 import getTasks from './tasks';
 import getPO from './tasks/po';
-import getPickUp from "./tasks/pickUp";
-import getInvoice from "./tasks/invoice";
-import getAsset from "./tasks/asset";
+import getPickUp from './tasks/pickUp';
+import getInvoice from './tasks/invoice';
+import getAsset from './tasks/asset';
 const router = express.Router();
 
 const getAppStatus = (req, res) => {
   res.status(200).json({
     status: 'success',
     message: 'App Initialized'
-  })
+  });
 };
 
 router.get('/', getAppStatus);

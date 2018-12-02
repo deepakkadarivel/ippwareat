@@ -1,12 +1,12 @@
 import axios from 'axios';
 import logger from '../logger';
-import constants from "../constants";
+import constants from '../constants';
 
 const BASE_URL = process.env.BASE_URL;
 
 const url = `${BASE_URL}/auth`;
 
-const parseAuth = (response) => {
+const parseAuth = response => {
   const headers = response.headers['set-cookie'];
   const cookie = headers[0];
   const loadBalancer = headers[2];
@@ -25,28 +25,28 @@ const parseAuth = (response) => {
       return {
         orgId: org.organization.orgId,
         name: org.organization.name,
-        orgCurrency: org.organization.orgCurrency,
-      }
-    }),
+        orgCurrency: org.organization.orgCurrency
+      };
+    })
   };
   const alias = {
     viewAlias: data.currentOrganization.viewAlias || 'View',
-    entityAlias: data.currentOrganization.entityAlias || 'Entity',
+    entityAlias: data.currentOrganization.entityAlias || 'Entity'
   };
 
   return {
     cookie,
     loadBalancer,
     user,
-    alias,
+    alias
   };
 };
 
 const login = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const {userName, password} = req.body;
-    const response = await axios.post(url, {userName, password});
+    const { userName, password } = req.body;
+    const response = await axios.post(url, { userName, password });
     if (!response.data.user) {
       let err = new Error(constants.INVALID_USER);
       err.status = 401;

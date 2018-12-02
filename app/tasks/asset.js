@@ -1,6 +1,6 @@
-import axios from "axios";
-import logger from "../logger";
-import constants from "../constants";
+import axios from 'axios';
+import logger from '../logger';
+import constants from '../constants';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -17,7 +17,7 @@ const parseAsset = asset => {
         placeholder: 'Entity',
         type: 'text',
         value: asset.entityName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Chrome_View',
@@ -27,7 +27,7 @@ const parseAsset = asset => {
         placeholder: 'View',
         type: 'text',
         value: asset.viewName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Asset Request #',
@@ -37,7 +37,7 @@ const parseAsset = asset => {
         placeholder: 'Asset Request #',
         type: 'text',
         value: asset.assetRequestNo,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Workflow',
@@ -46,7 +46,9 @@ const parseAsset = asset => {
         type: 'select',
         value: asset.workflowId,
         readOnly: true,
-        options: Object.values(asset.workflowList).map(x => {return {value: x.workflowId, label: x.workflowName}}),
+        options: Object.values(asset.workflowList).map(x => {
+          return { value: x.workflowId, label: x.workflowName };
+        })
       },
       {
         label: 'WareHouse',
@@ -55,7 +57,9 @@ const parseAsset = asset => {
         type: 'select',
         value: asset.wareHouse,
         readOnly: true,
-        options: Object.values(asset.wareHouseList).map(x => {return {value: x.wareHouseMasterId, label: x.value}}),
+        options: Object.values(asset.wareHouseList).map(x => {
+          return { value: x.wareHouseMasterId, label: x.value };
+        })
       },
       {
         label: 'Need Date',
@@ -63,7 +67,7 @@ const parseAsset = asset => {
         name: 'needDate',
         type: 'date',
         value: asset.needDate,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Return Date',
@@ -71,8 +75,8 @@ const parseAsset = asset => {
         name: 'returnDate',
         type: 'date',
         value: asset.returnDate,
-        readOnly: true,
-      },
+        readOnly: true
+      }
     ],
     assetLineItems: asset.assetTracking.assetLineItems.map((x, y) => {
       return {
@@ -84,7 +88,7 @@ const parseAsset = asset => {
           placeholder: '',
           type: 'text',
           value: x.itemDescription,
-          readOnly: true,
+          readOnly: true
         },
         lines: [
           {
@@ -95,7 +99,7 @@ const parseAsset = asset => {
             placeholder: y,
             type: 'text',
             value: (y + 1).toString(),
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Item #',
@@ -105,7 +109,7 @@ const parseAsset = asset => {
             placeholder: '',
             type: 'text',
             value: x.itemNo,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'UOM',
@@ -115,7 +119,7 @@ const parseAsset = asset => {
             placeholder: '',
             type: 'text',
             value: x.uom,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Qty',
@@ -125,10 +129,10 @@ const parseAsset = asset => {
             placeholder: '',
             type: 'text',
             value: x.qty,
-            readOnly: false,
-          },
+            readOnly: false
+          }
         ]
-      }
+      };
     }),
     footer: [
       {
@@ -140,22 +144,22 @@ const parseAsset = asset => {
         type: 'textArea',
         value: asset.comments,
         readOnly: true,
-        variant:"outlined",
-      },
-    ],
-  }
+        variant: 'outlined'
+      }
+    ]
+  };
 };
 
 const getAsset = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const {cookie, loadBalancer, payload} = req.body;
+    const { cookie, loadBalancer, payload } = req.body;
 
     const config = {
       headers: {
         name: 'content-type',
         value: 'application/x-www-form-urlencoded',
-        Cookie: cookie,
+        Cookie: cookie
       }
     };
 

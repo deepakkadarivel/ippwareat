@@ -1,6 +1,6 @@
-import axios from "axios";
-import logger from "../logger";
-import constants from "../constants";
+import axios from 'axios';
+import logger from '../logger';
+import constants from '../constants';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -17,7 +17,7 @@ const parsePo = po => {
         placeholder: 'Entity',
         type: 'text',
         value: po.entityName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Chrome_View',
@@ -27,7 +27,7 @@ const parsePo = po => {
         placeholder: 'View',
         type: 'text',
         value: po.viewName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Type',
@@ -37,7 +37,7 @@ const parsePo = po => {
         placeholder: 'Type',
         type: 'text',
         value: po.poFromLabel,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'PO Request #',
@@ -47,7 +47,7 @@ const parsePo = po => {
         placeholder: 'PO Request #',
         type: 'text',
         value: po.requisitionNo,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Reference PO #',
@@ -57,7 +57,7 @@ const parsePo = po => {
         placeholder: 'PO #',
         type: 'text',
         value: po.poNumber,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Workflow',
@@ -67,7 +67,7 @@ const parsePo = po => {
         placeholder: 'Workflow',
         type: 'text',
         value: po.workflowName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Supplier',
@@ -77,7 +77,7 @@ const parsePo = po => {
         placeholder: 'Supplier',
         type: 'text',
         value: po.supplierName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Currency',
@@ -87,7 +87,7 @@ const parsePo = po => {
         placeholder: 'Currency',
         type: 'text',
         value: po.currencyCode,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Billing Address',
@@ -116,7 +116,7 @@ const parsePo = po => {
             label: po.shippingAddress.name
           }
         ]
-      },
+      }
     ],
     poLineItems: po.poLineItems.map((x, y) => {
       return {
@@ -128,7 +128,7 @@ const parsePo = po => {
           placeholder: '',
           type: 'text',
           value: x.itemDescription,
-          readOnly: true,
+          readOnly: true
         },
         lines: [
           {
@@ -139,7 +139,7 @@ const parsePo = po => {
             placeholder: y,
             type: 'text',
             value: (y + 1).toString(),
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Category',
@@ -149,7 +149,7 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.categoryDesc,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Sub Category',
@@ -159,7 +159,7 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.subCategoryDesc,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Received Qty',
@@ -169,7 +169,7 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.receivedQty.toString(),
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'UOM',
@@ -179,7 +179,7 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.uom,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Net Price',
@@ -190,7 +190,7 @@ const parsePo = po => {
             type: 'text',
             value: x.netPrice,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'SGST %',
@@ -200,7 +200,7 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.sgst,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'CGST %',
@@ -210,7 +210,7 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.cgst,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Tax',
@@ -221,7 +221,7 @@ const parsePo = po => {
             type: 'text',
             value: x.tax,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'Total',
@@ -232,7 +232,7 @@ const parsePo = po => {
             type: 'text',
             value: x.totalAmount,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'Unit Price',
@@ -243,7 +243,7 @@ const parsePo = po => {
             type: 'text',
             value: x.price,
             readOnly: true,
-            adornment: true,
+            adornment: true
           },
           {
             label: 'Qty',
@@ -253,10 +253,10 @@ const parsePo = po => {
             placeholder: '',
             type: 'text',
             value: x.quantity,
-            readOnly: false,
-          },
+            readOnly: false
+          }
         ]
-      }
+      };
     }),
     prices: [
       {
@@ -268,7 +268,7 @@ const parsePo = po => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Total Tax',
@@ -279,7 +279,7 @@ const parsePo = po => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Grand Total',
@@ -290,8 +290,8 @@ const parsePo = po => {
         type: 'text',
         value: '',
         readOnly: true,
-        variant:"outlined",
-      },
+        variant: 'outlined'
+      }
     ],
     footer: [
       {
@@ -303,7 +303,7 @@ const parsePo = po => {
         type: 'text',
         value: po.advancePayment,
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Terms',
@@ -314,7 +314,7 @@ const parsePo = po => {
         type: 'textArea',
         value: po.terms,
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Payment Terms',
@@ -325,7 +325,7 @@ const parsePo = po => {
         type: 'textArea',
         value: po.paymentTerms,
         readOnly: true,
-        variant:"outlined",
+        variant: 'outlined'
       },
       {
         label: 'Comments',
@@ -336,27 +336,27 @@ const parsePo = po => {
         type: 'textArea',
         value: po.comments,
         readOnly: true,
-        variant:"outlined",
-      },
+        variant: 'outlined'
+      }
     ],
     entityId: po.entityId,
     viewId: po.viewId,
     workflowId: po.workflowId,
     supplierId: po.supplierId,
-    currency: po.currency,
-  }
+    currency: po.currency
+  };
 };
 
 const getPO = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const {cookie, loadBalancer, payload} = req.body;
+    const { cookie, loadBalancer, payload } = req.body;
 
     const config = {
       headers: {
         name: 'content-type',
         value: 'application/x-www-form-urlencoded',
-        Cookie: cookie,
+        Cookie: cookie
       }
     };
 

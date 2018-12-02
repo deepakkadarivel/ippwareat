@@ -1,6 +1,6 @@
-import axios from "axios";
-import logger from "../logger";
-import constants from "../constants";
+import axios from 'axios';
+import logger from '../logger';
+import constants from '../constants';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -48,7 +48,7 @@ const getTasks = async (req, res, next) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Cookie: cookie
       }
     };

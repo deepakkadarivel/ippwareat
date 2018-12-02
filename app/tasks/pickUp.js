@@ -1,6 +1,6 @@
-import axios from "axios";
-import logger from "../logger";
-import constants from "../constants";
+import axios from 'axios';
+import logger from '../logger';
+import constants from '../constants';
 
 const BASE_URL = process.env.BASE_URL;
 
@@ -17,7 +17,7 @@ const parsePickUp = pickUp => {
         placeholder: 'Entity',
         type: 'text',
         value: pickUp.entityName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Pickup Request #',
@@ -27,7 +27,7 @@ const parsePickUp = pickUp => {
         placeholder: 'Request #',
         type: 'text',
         value: pickUp.pickUpItemRequestNo,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Workflow',
@@ -36,7 +36,9 @@ const parsePickUp = pickUp => {
         type: 'select',
         value: pickUp.workflowId,
         readOnly: true,
-        options: pickUp.workflowList.map(x => {return {value: x.workflowId, label: x.workflowName}}),
+        options: pickUp.workflowList.map(x => {
+          return { value: x.workflowId, label: x.workflowName };
+        })
       },
       {
         label: 'Receiving Warehouse',
@@ -45,7 +47,9 @@ const parsePickUp = pickUp => {
         type: 'select',
         value: pickUp.fromWarehouse,
         readOnly: true,
-        options: pickUp.wareHouseList.map(x => {return {value: x.wareHouseMasterId, label: x.value}}),
+        options: pickUp.wareHouseList.map(x => {
+          return { value: x.wareHouseMasterId, label: x.value };
+        })
       },
       {
         label: 'Transferring Chrome_Entity',
@@ -55,7 +59,7 @@ const parsePickUp = pickUp => {
         placeholder: 'Entity',
         type: 'text',
         value: pickUp.toEntityName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Transferring Warehouse',
@@ -65,7 +69,7 @@ const parsePickUp = pickUp => {
         placeholder: 'Entity',
         type: 'text',
         value: pickUp.wareHouseName,
-        readOnly: true,
+        readOnly: true
       },
       {
         label: 'Dispatch Type',
@@ -74,7 +78,9 @@ const parsePickUp = pickUp => {
         type: 'select',
         value: pickUp.attribute_5,
         readOnly: false,
-        options: Object.values(pickUp.jsonAttributeValuesMap).map(x => {return {value: x.valueId, label: x.values}}),
+        options: Object.values(pickUp.jsonAttributeValuesMap).map(x => {
+          return { value: x.valueId, label: x.values };
+        })
       },
       {
         label: 'Mode of Transport',
@@ -84,7 +90,7 @@ const parsePickUp = pickUp => {
         type: 'textArea',
         value: pickUp.attribute_1,
         readOnly: false,
-        rowsMax: 4,
+        rowsMax: 4
       },
       {
         label: 'Location',
@@ -94,7 +100,7 @@ const parsePickUp = pickUp => {
         type: 'textArea',
         value: pickUp.attribute_2,
         readOnly: false,
-        rowsMax: 4,
+        rowsMax: 4
       },
       {
         label: 'GSTIN',
@@ -104,7 +110,7 @@ const parsePickUp = pickUp => {
         type: 'textArea',
         value: pickUp.attribute_3,
         readOnly: false,
-        rowsMax: 4,
+        rowsMax: 4
       },
       {
         label: 'Address',
@@ -114,8 +120,8 @@ const parsePickUp = pickUp => {
         type: 'textArea',
         value: pickUp.attribute_4,
         readOnly: false,
-        rowsMax: 4,
-      },
+        rowsMax: 4
+      }
     ],
     pickUpLineItems: pickUp.pickUpItem.pickUpLineItems.map((x, y) => {
       return {
@@ -127,7 +133,7 @@ const parsePickUp = pickUp => {
           placeholder: '',
           type: 'text',
           value: x.itemDescription,
-          readOnly: true,
+          readOnly: true
         },
         lines: [
           {
@@ -138,7 +144,7 @@ const parsePickUp = pickUp => {
             placeholder: y,
             type: 'text',
             value: (y + 1).toString(),
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Item #',
@@ -148,7 +154,7 @@ const parsePickUp = pickUp => {
             placeholder: '',
             type: 'text',
             value: x.itemNo,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'UOM',
@@ -158,7 +164,7 @@ const parsePickUp = pickUp => {
             placeholder: '',
             type: 'text',
             value: x.uom,
-            readOnly: true,
+            readOnly: true
           },
           {
             label: 'Qty',
@@ -168,10 +174,10 @@ const parsePickUp = pickUp => {
             placeholder: '',
             type: 'text',
             value: x.qty,
-            readOnly: false,
-          },
+            readOnly: false
+          }
         ]
-      }
+      };
     }),
     footer: [
       {
@@ -183,13 +189,13 @@ const parsePickUp = pickUp => {
         type: 'textArea',
         value: pickUp.comments,
         readOnly: true,
-        variant:"outlined",
-      },
+        variant: 'outlined'
+      }
     ],
     entityId: pickUp.entityId,
     toEntityId: pickUp.toEntityId,
     wareHouse: pickUp.pickUpItem.wareHouse,
-    dynamicColumns: pickUp.dynamicColumns,
+    dynamicColumns: pickUp.dynamicColumns
   };
 };
 
@@ -202,7 +208,7 @@ const getPickUp = async (req, res, next) => {
       headers: {
         name: 'content-type',
         value: 'application/x-www-form-urlencoded',
-        Cookie: cookie,
+        Cookie: cookie
       }
     };
 

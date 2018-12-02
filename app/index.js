@@ -14,27 +14,27 @@ app.use(cors());
 const handleNotFound = (req, res, next) => {
   let err = new Error('Not Found');
   err.status = 404;
-  next(err)
+  next(err);
 };
 
 const handleError = (err, req, res, next) => {
-  logger.error(`${err} ${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
-  res.status(err.status || 500)
-    .json({
-      status: 'error',
-      message: err.message
-    })
+  logger.error(
+    `${err} ${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
+  );
+  res.status(err.status || 500).json({
+    status: 'error',
+    message: err.message
+  });
 };
 
 app.use(router);
 app.use(handleNotFound);
 app.use(handleError);
 
-
-app.listen(port, (err) => {
+app.listen(port, err => {
   if (err) {
     logger.error(err.toString());
-    return
+    return;
   }
-  logger.info(`app is running at port ${port}`)
+  logger.info(`app is running at port ${port}`);
 });
