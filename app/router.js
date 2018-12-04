@@ -1,7 +1,7 @@
 import express from 'express';
 import login from './auth';
 import getTasks from './tasks';
-import getPO from './tasks/po';
+import {getPO, updatePO} from './tasks/po';
 import getPickUp from './tasks/pickUp';
 import getInvoice from './tasks/invoice';
 import getAsset from './tasks/asset';
@@ -18,6 +18,7 @@ router.get('/', getAppStatus);
 router.post('/login', login);
 router.post('/tasks', getTasks);
 router.post('/po', getPO);
+router.post('/updatePO', updatePO);
 router.post('/pickUp', getPickUp);
 router.post('/invoice', getInvoice);
 router.post('/asset', getAsset);

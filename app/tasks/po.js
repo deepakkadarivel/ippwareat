@@ -135,12 +135,12 @@ const parsePo = po => {
         price: x.price,
         quantity: x.quantity,
         itemId: x.items.itemId,
-        qty: x.qty,
+        qty: x.quantity,
         currency: x.items.currency,
-        desc: x.desc,
+        desc: x.items.description1,
         otherTax: x.otherTax,
         taxName: x.taxName,
-        hsnCode: x.items.hsnCode,
+        hsnCode: x.items.hsnORsacCode,
         categoryId: x.items.categoryId,
         subCategoryId: x.items.subCategoryId,
       };
@@ -191,12 +191,10 @@ const parsePo = po => {
         variant: 'outlined'
       }
     ],
-    entityId: po.entityId,
-    viewId: po.viewId,
+    requisitionNo: po.requisitionNo,
     workflowId: po.workflowId,
     supplierId: po.supplierId,
     currency: po.currency,
-    requisitionNo: po.requisitionNo,
     shippingAddressId: po.shippingAddressId,
     billingAddressId: po.billingAddressId,
     purchaseOrder: po.purchaseOrder,
@@ -211,7 +209,9 @@ const parsePo = po => {
     dynamicColumns: po.dynamicColumns || '',
     terms: po.terms,
     paymentTerms: po.paymentTerms,
+    entityId: po.entityId,
     entityName: po.entityName,
+    viewId: po.viewId,
     viewName: po.viewName,
     requesterId: po.requesterId,
     parentId: po.parentId,
@@ -235,7 +235,7 @@ const parsePo = po => {
 const getPO = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const { cookie, loadBalancer, payload } = req.body;
+    const {cookie, loadBalancer, payload} = req.body;
 
     const config = {
       headers: {
@@ -253,9 +253,7 @@ const getPO = async (req, res, next) => {
       next(err);
     } else {
       const po = await parsePo(response.data);
-      logger.info(JSON.stringify(po));
       res.status(200).json(po);
-      // res.status(200).json(response.data);
     }
   } catch (err) {
     if (err.toString() === constants.STATUS_401) {
@@ -264,4 +262,34 @@ const getPO = async (req, res, next) => {
     next(err);
   }
 };
-export default getPO;
+
+const updatePO = async (req, res, next) => {
+  logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
+  try {
+    const {cookie, loadBalancer, payload} = req.body;
+
+    const config = {
+      headers: {
+        name: 'content-type',
+        value: 'application/x-www-form-urlencoded',
+        Cookie: cookie
+      }
+    };
+
+    const response = await axios.post(url, payload, config);
+
+    if (!response.data) {
+      let err = new Error(constants.INVALID_USER);
+      err.status = 401;
+      next(err);
+    } else {
+      res.status(200).json(response.data);
+    }
+  } catch (err) {
+    if (err.toString() === constants.STATUS_401) {
+      err.status = 401;
+    }
+    next(err);
+  }
+};
+export { getPO, updatePO };
