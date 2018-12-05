@@ -4,7 +4,7 @@ import getTasks from './tasks';
 import {getPO, updatePO} from './tasks/po';
 import {getPickUp, updatePickUp} from './tasks/pickUp';
 import getInvoice from './tasks/invoice';
-import getAsset from './tasks/asset';
+import {getAsset , updateAsset} from './tasks/asset';
 
 const router = express.Router();
 
@@ -24,5 +24,6 @@ router.post('/pickUp', getPickUp);
 router.post('/updatePickUp', updatePickUp);
 router.post('/invoice', getInvoice);
 router.post('/asset', getAsset);
+router.post('/updateAsset', updateAsset);
 
 module.exports = router;

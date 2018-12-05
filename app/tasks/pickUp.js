@@ -126,7 +126,7 @@ const parsePickUp = pickUp => {
     pickUpLineItems: pickUp.pickUpItem.pickUpLineItems.map((x, y) => {
       return {
         header: x.itemDescription,
-        lineItemId: (y + 1).toString(),
+        lineItemId: x.pickUpLineItemId,
         itemNo: x.itemNo,
         uom: x.uom,
         qty: x.qty,

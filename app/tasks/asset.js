@@ -80,58 +80,12 @@ const parseAsset = asset => {
     ],
     assetLineItems: asset.assetTracking.assetLineItems.map((x, y) => {
       return {
-        header: {
-          label: 'Item',
-          id: 'itemDescription',
-          name: 'itemDescription',
-          maxlength: '50',
-          placeholder: '',
-          type: 'text',
-          value: x.itemDescription,
-          readOnly: true
-        },
-        lines: [
-          {
-            label: 'Line Item',
-            id: 'lineItemId',
-            name: 'lineItemId',
-            maxlength: '50',
-            placeholder: y,
-            type: 'text',
-            value: (y + 1).toString(),
-            readOnly: true
-          },
-          {
-            label: 'Item #',
-            id: 'itemNo',
-            name: 'itemNo',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.itemNo,
-            readOnly: true
-          },
-          {
-            label: 'UOM',
-            id: 'uom',
-            name: 'uom',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.uom,
-            readOnly: true
-          },
-          {
-            label: 'Qty',
-            id: 'qty',
-            name: 'qty',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.qty,
-            readOnly: false
-          }
-        ]
+        header: x.itemDescription,
+        assetLineItemId: x.assetLineItemId,
+        itemNo: x.itemNo,
+        uom: x.uom,
+        qty: x.qty,
+        newItem: x.isLinked === 'N' ? x.itemDescription : '',
       };
     }),
     footer: [
@@ -146,7 +100,26 @@ const parseAsset = asset => {
         readOnly: true,
         variant: 'outlined'
       }
-    ]
+    ],
+    pickUpItemId: asset.pickUpItemId,
+    assetId: asset.assetId,
+    workflowAuditId: asset.workflowAuditId,
+    taskId: asset.taskId,
+    seqFlow: asset.seqFlow,
+    auditTrackId: asset.auditTrackId,
+    processInstanceId: asset.processInstanceId,
+    pickUpItemRequestNo: asset.assetRequestNo,
+    workflowId: asset.workflowId,
+    wareHouse: asset.assetTracking.wareHouse,
+    needDate: asset.needDate,
+    returnDate: asset.returnDate,
+    companyId: asset.companyId,
+    dynamicColumns: asset.assetTracking.dynamicColumns,
+    entityId: asset.entityId,
+    entityName: asset.entityName,
+    viewId: asset.viewId,
+    viewName: asset.viewName,
+    requesterId: asset.requesterId
   };
 };
 
@@ -181,4 +154,34 @@ const getAsset = async (req, res, next) => {
     next(err);
   }
 };
-export default getAsset;
+
+const updateAsset = async (req, res, next) => {
+  logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
+  try {
+    const {cookie, loadBalancer, payload} = req.body;
+
+    const config = {
+      headers: {
+        name: 'content-type',
+        value: 'application/x-www-form-urlencoded',
+        Cookie: cookie
+      }
+    };
+
+    const response = await axios.post(url, payload, config);
+
+    if (!response.data) {
+      let err = new Error(constants.INVALID_USER);
+      err.status = 401;
+      next(err);
+    } else {
+      res.status(200).json(response.data);
+    }
+  } catch (err) {
+    if (err.toString() === constants.STATUS_401) {
+      err.status = 401;
+    }
+    next(err);
+  }
+};
+export {getAsset, updateAsset};
