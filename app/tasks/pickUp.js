@@ -130,6 +130,7 @@ const parsePickUp = pickUp => {
         itemNo: x.itemNo,
         uom: x.uom,
         qty: x.qty,
+        newItem: x.isLinked === 'N' ? x.itemDescription : '',
       };
     }),
     footer: [
@@ -145,10 +146,25 @@ const parsePickUp = pickUp => {
         variant: 'outlined'
       }
     ],
-    entityId: pickUp.entityId,
-    toEntityId: pickUp.toEntityId,
+    pickUpItemId: pickUp.pickUpItemId,
+    assetId: pickUp.assetId,
+    workflowAuditId: pickUp.workflowAuditId,
+    taskId: pickUp.taskId,
+    seqFlow: pickUp.seqFlow,
+    auditTrackId: pickUp.auditTrackId,
+    processInstanceId: pickUp.processInstanceId,
+    pickUpItemRequestNo: pickUp.pickUpItemRequestNo,
+    workflowId: pickUp.workflowId,
     wareHouse: pickUp.pickUpItem.wareHouse,
-    dynamicColumns: pickUp.dynamicColumns
+    needDate: pickUp.needDate,
+    returnDate: pickUp.returnDate,
+    companyId: pickUp.companyId,
+    dynamicColumns: pickUp.pickUpItem.dynamicColumns,
+    entityId: pickUp.entityId,
+    entityName: pickUp.entityName,
+    viewId: pickUp.viewId,
+    viewName: pickUp.viewName,
+    requesterId: pickUp.requesterId
   };
 };
 
@@ -183,4 +199,34 @@ const getPickUp = async (req, res, next) => {
     next(err);
   }
 };
-export default getPickUp;
+
+const updatePickUp = async (req, res, next) => {
+  logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
+  try {
+    const {cookie, loadBalancer, payload} = req.body;
+
+    const config = {
+      headers: {
+        name: 'content-type',
+        value: 'application/x-www-form-urlencoded',
+        Cookie: cookie
+      }
+    };
+
+    const response = await axios.post(url, payload, config);
+
+    if (!response.data) {
+      let err = new Error(constants.INVALID_USER);
+      err.status = 401;
+      next(err);
+    } else {
+      res.status(200).json(response.data);
+    }
+  } catch (err) {
+    if (err.toString() === constants.STATUS_401) {
+      err.status = 401;
+    }
+    next(err);
+  }
+};
+export {getPickUp, updatePickUp};
