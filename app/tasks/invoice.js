@@ -101,182 +101,31 @@ const parseInvoice = invoice => {
     ],
     invoiceLineItems: invoice.invoice.invoiceLineItems.map((x, y) => {
       return {
-        header: {
-          label: 'Item',
-          id: 'itemDesc',
-          name: 'itemDesc',
-          maxlength: '50',
-          placeholder: '',
-          type: 'text',
-          value: x.itemDesc,
-          readOnly: true
-        },
-        lines: [
-          {
-            label: 'S.NO',
-            id: 'lineItemId',
-            name: 'lineItemId',
-            maxlength: '50',
-            placeholder: y,
-            type: 'text',
-            value: (y + 1).toString(),
-            readOnly: true
-          },
-          {
-            label: 'PO #',
-            id: 'poNo',
-            name: 'poNo',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.poNo,
-            readOnly: true
-          },
-          {
-            label: 'Item #',
-            id: 'itemNo',
-            name: 'itemNo',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.itemNo,
-            readOnly: true
-          },
-          {
-            label: 'Supplier',
-            id: 'supplierName',
-            name: 'supplierName',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.supplierName,
-            readOnly: true
-          },
-          {
-            label: 'Supplier Part #',
-            id: 'supplierPartNo',
-            name: 'supplierPartNo',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.supplierPartNo,
-            readOnly: true
-          },
-          {
-            label: 'Qty Ordered',
-            id: 'qtyOrdered',
-            name: 'qtyOrdered',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.qtyOrdered,
-            readOnly: true
-          },
-          {
-            label: 'Qty Received',
-            id: 'qty',
-            name: 'qty',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.qty,
-            readOnly: true
-          },
-          {
-            label: 'UOM',
-            id: 'uom',
-            name: 'uom',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.uom,
-            readOnly: true
-          },
-          {
-            label: 'Price',
-            id: 'price',
-            name: 'price',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.price,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'Net Price',
-            id: 'netPrice',
-            name: 'netPrice',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.netPrice,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'Discount',
-            id: 'discount',
-            name: 'discount',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.discount,
-            readOnly: true
-          },
-          {
-            label: 'SGST %',
-            id: 'sgst',
-            name: 'sgst',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.sgst,
-            readOnly: true
-          },
-          {
-            label: 'CGST %',
-            id: 'cgst',
-            name: 'cgst',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.cgst,
-            readOnly: true
-          },
-          {
-            label: 'IGST %',
-            id: 'igst',
-            name: 'igst',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.igst,
-            readOnly: true
-          },
-          {
-            label: 'Tax',
-            id: 'taxAmt',
-            name: 'taxAmt',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.taxAmt,
-            readOnly: true,
-            adornment: true
-          },
-          {
-            label: 'Total',
-            id: 'totalAmt',
-            name: 'totalAmt',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.totalAmt,
-            readOnly: true,
-            adornment: true
-          }
-        ]
+        header: x.itemDesc,
+        lineItemId: x.invoiceLineItemId,
+        receivedId: x.receivedId,
+        itemId: x.itemId,
+        desc: x.desc,
+        uom: x.uom,
+        qty: x.qty,
+        price: x.price,
+        netPrice: x.netPrice,
+        discount: x.discount,
+        sgst: x.sgst,
+        cgst: x.cgst,
+        igst: x.igst,
+        tax: x.tax,
+        totalAmount: x.totalAmount,
+        otherTax: x.otherTax,
+        taxName: x.taxName,
+        poNo: x.poNo,
+        itemNo: x.itemNo,
+        supplierPartNo: x.supplierPartNo,
+        supplierName: x.supplierName,
+        qtyOrdered: x.qtyOrdered,
+        taxAmt: x.taxAmt,
+        totalAmt: x.totalAmt,
+        sNo: (y + 1).toString(),
       };
     }),
     prices: [
