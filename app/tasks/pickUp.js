@@ -37,7 +37,7 @@ const parsePickUp = pickUp => {
         value: pickUp.workflowId,
         readOnly: true,
         options: pickUp.workflowList.map(x => {
-          return { value: x.workflowId, label: x.workflowName };
+          return {value: x.workflowId, label: x.workflowName};
         })
       },
       {
@@ -48,7 +48,7 @@ const parsePickUp = pickUp => {
         value: pickUp.fromWarehouse,
         readOnly: true,
         options: pickUp.wareHouseList.map(x => {
-          return { value: x.wareHouseMasterId, label: x.value };
+          return {value: x.wareHouseMasterId, label: x.value};
         })
       },
       {
@@ -79,7 +79,7 @@ const parsePickUp = pickUp => {
         value: pickUp.attribute_5,
         readOnly: false,
         options: Object.values(pickUp.jsonAttributeValuesMap).map(x => {
-          return { value: x.valueId, label: x.values };
+          return {value: x.valueId, label: x.values};
         })
       },
       {
@@ -125,58 +125,11 @@ const parsePickUp = pickUp => {
     ],
     pickUpLineItems: pickUp.pickUpItem.pickUpLineItems.map((x, y) => {
       return {
-        header: {
-          label: 'Item',
-          id: 'itemDescription',
-          name: 'itemDescription',
-          maxlength: '50',
-          placeholder: '',
-          type: 'text',
-          value: x.itemDescription,
-          readOnly: true
-        },
-        lines: [
-          {
-            label: 'Line Item',
-            id: 'lineItemId',
-            name: 'lineItemId',
-            maxlength: '50',
-            placeholder: y,
-            type: 'text',
-            value: (y + 1).toString(),
-            readOnly: true
-          },
-          {
-            label: 'Item #',
-            id: 'itemNo',
-            name: 'itemNo',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.itemNo,
-            readOnly: true
-          },
-          {
-            label: 'UOM',
-            id: 'uom',
-            name: 'uom',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.uom,
-            readOnly: true
-          },
-          {
-            label: 'Qty',
-            id: 'qty',
-            name: 'qty',
-            maxlength: '50',
-            placeholder: '',
-            type: 'text',
-            value: x.qty,
-            readOnly: false
-          }
-        ]
+        header: x.itemDescription,
+        lineItemId: (y + 1).toString(),
+        itemNo: x.itemNo,
+        uom: x.uom,
+        qty: x.qty,
       };
     }),
     footer: [
@@ -202,7 +155,7 @@ const parsePickUp = pickUp => {
 const getPickUp = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const { cookie, loadBalancer, payload } = req.body;
+    const {cookie, loadBalancer, payload} = req.body;
 
     const config = {
       headers: {
