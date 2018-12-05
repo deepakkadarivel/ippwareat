@@ -105,7 +105,7 @@ const parseInvoice = invoice => {
         lineItemId: x.invoiceLineItemId,
         receivedId: x.receivedId,
         itemId: x.itemId,
-        desc: x.desc,
+        desc: x.itemDesc,
         uom: x.uom,
         qty: x.qty,
         price: x.price,
@@ -114,8 +114,8 @@ const parseInvoice = invoice => {
         sgst: x.sgst,
         cgst: x.cgst,
         igst: x.igst,
-        tax: x.tax,
-        totalAmount: x.totalAmount,
+        tax: x.taxAmt,
+        totalAmount: x.totalAmt,
         otherTax: x.otherTax,
         taxName: x.taxName,
         poNo: x.poNo,
@@ -128,63 +128,6 @@ const parseInvoice = invoice => {
         sNo: (y + 1).toString(),
       };
     }),
-    prices: [
-      {
-        label: 'Sub Total',
-        id: 'subTotalAmt',
-        name: 'subTotalAmt',
-        maxlength: '50',
-        placeholder: 'Sub Total',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Shipping & Handling Charges',
-        id: 'additionalAmt',
-        name: 'additionalAmt',
-        maxlength: '50',
-        placeholder: 'Shipping & Handling Charges',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Adjust',
-        id: 'adjustedAmt',
-        name: 'adjustedAmt',
-        maxlength: '50',
-        placeholder: 'Adjust',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Discount',
-        id: 'discount',
-        name: 'discount',
-        maxlength: '50',
-        placeholder: 'Discount',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Grand Total',
-        id: 'grandTotal',
-        name: 'grandTotal',
-        maxlength: '50',
-        placeholder: 'Grand Total',
-        type: 'text',
-        value: '',
-        readOnly: true,
-        variant: 'outlined'
-      }
-    ],
     footer: [
       {
         label: 'Payment Terms',
@@ -208,14 +151,37 @@ const parseInvoice = invoice => {
         readOnly: true,
         variant: 'outlined'
       }
-    ]
+    ],
+    invoiceId: invoice.invoice.invoiceId,
+    workflowAuditId: invoice.workflowAuditId,
+    taskId: invoice.taskId,
+    seqFlow: invoice.seqFlow,
+    auditTrackId: invoice.auditTrackId,
+    processInstanceId: invoice.processInstanceId,
+    invoiceNo: invoice.invoice.invoiceNo,
+    invoiceDate: invoice.invoiceDate,
+    workflowId: invoice.workflowId,
+    supplierId: invoice.supplierId,
+    requisitionId: invoice.invoice.poRequesition.requisitionId,
+    companyId: invoice.companyId,
+    subTotalAmt: invoice.invoice.subTotalAmt,
+    additionalAmt: invoice.invoice.additionalAmt,
+    adjustedAmt: invoice.invoice.adjustedAmt,
+    discount: invoice.invoice.discount,
+    grandTotal: invoice.invoice.grandTotal,
+    entityId: invoice.entityId,
+    entityName: invoice.entityName,
+    requesterId: invoice.requesterId,
+    poFrom: invoice.poFrom,
+    paymentDays: invoice.paymentDays,
+    creditNotes: invoice.creditNotes,
   };
 };
 
 const getInvoice = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const { cookie, loadBalancer, payload } = req.body;
+    const {cookie, loadBalancer, payload} = req.body;
 
     const config = {
       headers: {
@@ -233,7 +199,6 @@ const getInvoice = async (req, res, next) => {
       next(err);
     } else {
       const invoice = await parseInvoice(response.data);
-      // logger.info(JSON.stringify(invoice));
       res.status(200).json(invoice);
     }
   } catch (err) {
@@ -243,4 +208,35 @@ const getInvoice = async (req, res, next) => {
     next(err);
   }
 };
-export default getInvoice;
+
+const updateInvoice = async (req, res, next) => {
+  logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
+  try {
+    const {cookie, loadBalancer, payload} = req.body;
+
+    const config = {
+      headers: {
+        name: 'content-type',
+        value: 'application/x-www-form-urlencoded',
+        Cookie: cookie
+      }
+    };
+
+    const response = await axios.post(url, payload, config);
+
+    if (!response.data) {
+      let err = new Error(constants.INVALID_USER);
+      err.status = 401;
+      next(err);
+    } else {
+      res.status(200).json(response.data);
+    }
+  } catch (err) {
+    logger.info(err.toString());
+    if (err.toString() === constants.STATUS_401) {
+      err.status = 401;
+    }
+    next(err);
+  }
+};
+export {getInvoice, updateInvoice};
