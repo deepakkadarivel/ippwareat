@@ -2,7 +2,7 @@ import axios from 'axios';
 import logger from '../logger';
 import constants from '../constants';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://27.34.240.158:8088/SCM/api/';
 
 const url = `${BASE_URL}${constants.url.ASSET}`;
 
@@ -47,7 +47,7 @@ const parseAsset = asset => {
         value: asset.workflowId,
         readOnly: true,
         options: Object.values(asset.workflowList).map(x => {
-          return { value: x.workflowId, label: x.workflowName };
+          return {value: x.workflowId, label: x.workflowName};
         })
       },
       {
@@ -58,7 +58,7 @@ const parseAsset = asset => {
         value: asset.wareHouse,
         readOnly: true,
         options: Object.values(asset.wareHouseList).map(x => {
-          return { value: x.wareHouseMasterId, label: x.value };
+          return {value: x.wareHouseMasterId, label: x.value};
         })
       },
       {
@@ -78,7 +78,7 @@ const parseAsset = asset => {
         readOnly: true
       }
     ],
-    assetLineItems: asset.assetTracking.assetLineItems.map((x, y) => {
+    assetLineItems: !asset.assetTracking ? [] : asset.assetTracking.assetLineItems.map((x, y) => {
       return {
         header: x.itemDescription,
         assetLineItemId: x.assetLineItemId,
@@ -88,19 +88,7 @@ const parseAsset = asset => {
         newItem: x.isLinked === 'N' ? x.itemDescription : '',
       };
     }),
-    footer: [
-      {
-        label: 'Comments',
-        id: 'comments',
-        name: 'comments',
-        maxlength: '50',
-        placeholder: 'Comments',
-        type: 'textArea',
-        value: asset.comments,
-        readOnly: true,
-        variant: 'outlined'
-      }
-    ],
+    comments: asset.comments,
     pickUpItemId: asset.pickUpItemId,
     assetId: asset.assetId,
     workflowAuditId: asset.workflowAuditId,
@@ -110,11 +98,11 @@ const parseAsset = asset => {
     processInstanceId: asset.processInstanceId,
     pickUpItemRequestNo: asset.assetRequestNo,
     workflowId: asset.workflowId,
-    wareHouse: asset.assetTracking.wareHouse,
+    wareHouse: asset.assetTracking ? asset.assetTracking.wareHouse : '',
     needDate: asset.needDate,
     returnDate: asset.returnDate,
     companyId: asset.companyId,
-    dynamicColumns: asset.assetTracking.dynamicColumns,
+    dynamicColumns: asset.assetTracking ? asset.assetTracking.dynamicColumns : '',
     entityId: asset.entityId,
     entityName: asset.entityName,
     viewId: asset.viewId,
@@ -126,7 +114,7 @@ const parseAsset = asset => {
 const getAsset = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const { cookie, loadBalancer, payload } = req.body;
+    const {cookie, loadBalancer, payload} = req.body;
 
     const config = {
       headers: {

@@ -2,7 +2,7 @@ import axios from 'axios';
 import logger from '../logger';
 import constants from '../constants';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://27.34.240.158:8088/SCM/api/';
 
 const url = `${BASE_URL}${constants.url.INVOICE}`;
 
@@ -36,7 +36,7 @@ const parseInvoice = invoice => {
         maxlength: '50',
         placeholder: 'Invoice #',
         type: 'text',
-        value: invoice.invoice.invoiceNo,
+        value: invoice.invoice ? invoice.invoice.invoiceNo : 0,
         readOnly: true
       },
       {
@@ -76,7 +76,7 @@ const parseInvoice = invoice => {
         maxlength: '50',
         placeholder: 'PO',
         type: 'text',
-        value: invoice.invoice.invoiceLineItems[0].poNo,
+        value: invoice.invoice ? invoice.invoice.invoiceLineItems[0].poNo : 0,
         readOnly: true
       },
       {
@@ -99,7 +99,7 @@ const parseInvoice = invoice => {
         options: []
       }
     ],
-    invoiceLineItems: invoice.invoice.invoiceLineItems.map((x, y) => {
+    invoiceLineItems: !invoice.invoice ? [] : invoice.invoice.invoiceLineItems.map((x, y) => {
       return {
         header: x.itemDesc,
         lineItemId: x.invoiceLineItemId,
@@ -128,47 +128,25 @@ const parseInvoice = invoice => {
         sNo: (y + 1).toString(),
       };
     }),
-    footer: [
-      {
-        label: 'Payment Terms',
-        id: 'paymentTerms',
-        name: 'paymentTerms',
-        maxlength: '50',
-        placeholder: 'Payment Terms',
-        type: 'textArea',
-        value: invoice.paymentTerms,
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Comments',
-        id: 'comments',
-        name: 'comments',
-        maxlength: '50',
-        placeholder: 'Comments',
-        type: 'textArea',
-        value: invoice.comments,
-        readOnly: true,
-        variant: 'outlined'
-      }
-    ],
-    invoiceId: invoice.invoice.invoiceId,
+    paymentTerms: invoice.invoice ? invoice.invoice.poRequesition.paymentTerms : '',
+    comments: invoice.comments,
+    invoiceId: invoice.invoice ? invoice.invoice.invoiceId : 0,
     workflowAuditId: invoice.workflowAuditId,
     taskId: invoice.taskId,
     seqFlow: invoice.seqFlow,
     auditTrackId: invoice.auditTrackId,
     processInstanceId: invoice.processInstanceId,
-    invoiceNo: invoice.invoice.invoiceNo,
+    invoiceNo: invoice.invoice ? invoice.invoice.invoiceNo : 0,
     invoiceDate: invoice.invoiceDate,
     workflowId: invoice.workflowId,
     supplierId: invoice.supplierId,
-    requisitionId: invoice.invoice.poRequesition.requisitionId,
+    requisitionId: invoice.invoice ? invoice.invoice.poRequesition.requisitionId : 0,
     companyId: invoice.companyId,
-    subTotalAmt: invoice.invoice.subTotalAmt,
-    additionalAmt: invoice.invoice.additionalAmt,
-    adjustedAmt: invoice.invoice.adjustedAmt,
-    discount: invoice.invoice.discount,
-    grandTotal: invoice.invoice.grandTotal,
+    subTotalAmt: invoice.invoice ? invoice.invoice.subTotalAmt : 0,
+    additionalAmt: invoice.invoice ? invoice.invoice.additionalAmt : 0,
+    adjustedAmt: invoice.invoice ? invoice.invoice.adjustedAmt : 0,
+    discount: invoice.invoice ? invoice.invoice.discount : 0,
+    grandTotal: invoice.invoice ? invoice.invoice.grandTotal : 0,
     entityId: invoice.entityId,
     entityName: invoice.entityName,
     requesterId: invoice.requesterId,

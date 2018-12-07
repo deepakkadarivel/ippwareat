@@ -2,7 +2,7 @@ import axios from 'axios';
 import logger from '../logger';
 import constants from '../constants';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://27.34.240.158:8088/SCM/api/';
 
 const url = `${BASE_URL}mtask`;
 

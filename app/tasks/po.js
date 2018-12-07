@@ -2,7 +2,7 @@ import axios from 'axios';
 import logger from '../logger';
 import constants from '../constants';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://27.34.240.158:8088/SCM/api/';
 
 const url = `${BASE_URL}${constants.url.PO}`;
 
@@ -96,12 +96,10 @@ const parsePo = po => {
         type: 'select',
         value: po.billingAddressId,
         readOnly: true,
-        options: [
-          {
-            value: po.billingAddress.addressId,
-            label: po.billingAddress.name
-          }
-        ]
+        options: po.billingAddress ? [{
+          value: po.billingAddress.addressId,
+          label: po.billingAddress.name
+        }] : []
       },
       {
         label: 'Ship To Address',
@@ -110,12 +108,12 @@ const parsePo = po => {
         type: 'select',
         value: po.shippingAddressId,
         readOnly: true,
-        options: [
-          {
-            value: po.shippingAddress.addressId,
-            label: po.shippingAddress.name
-          }
-        ]
+        options: po.shippingAddress ? [{
+          value: po.shippingAddress.addressId,
+          label:
+          po.shippingAddress.name
+        }] : []
+
       }
     ],
     poLineItems: po.poLineItems.map((x, y) => {
@@ -145,91 +143,86 @@ const parsePo = po => {
         subCategoryId: x.items.subCategoryId,
       };
     }),
-    footer: [
-      {
-        label: 'Advance Payment %',
-        id: 'advancePayment',
-        name: 'advancePayment',
-        maxlength: '50',
-        placeholder: 'Advance Payment',
-        type: 'text',
-        value: po.advancePayment,
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Terms',
-        id: 'terms',
-        name: 'terms',
-        maxlength: '50',
-        placeholder: 'Advance Payment',
-        type: 'textArea',
-        value: po.terms,
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Payment Terms',
-        id: 'paymentTerms',
-        name: 'paymentTerms',
-        maxlength: '50',
-        placeholder: 'Payment Terms',
-        type: 'textArea',
-        value: po.paymentTerms,
-        readOnly: true,
-        variant: 'outlined'
-      },
-      {
-        label: 'Comments',
-        id: 'comments',
-        name: 'comments',
-        maxlength: '50',
-        placeholder: 'Comments',
-        type: 'textArea',
-        value: po.comments,
-        readOnly: true,
-        variant: 'outlined'
-      }
-    ],
-    requisitionNo: po.requisitionNo,
-    workflowId: po.workflowId,
-    supplierId: po.supplierId,
-    currency: po.currency,
-    shippingAddressId: po.shippingAddressId,
-    billingAddressId: po.billingAddressId,
-    purchaseOrder: po.purchaseOrder,
-    requisitionId: po.requisitionId,
-    workflowAuditId: po.workflowAuditId,
-    taskId: po.taskId,
-    seqFlow: po.seqFlow,
-    auditTrackId: po.auditTrackId,
-    processInstanceId: po.processInstanceId,
-    poFrom: po.poFrom,
-    companyId: po.companyId,
-    dynamicColumns: po.dynamicColumns || '',
-    terms: po.terms,
-    paymentTerms: po.paymentTerms,
-    entityId: po.entityId,
-    entityName: po.entityName,
-    viewId: po.viewId,
-    viewName: po.viewName,
-    requesterId: po.requesterId,
-    parentId: po.parentId,
-    poAmendment: po.poAmendment,
-    discount: po.discount,
-    amendmentEdit: po.amendmentEdit,
-    startDate: po.startDate,
-    endDate: po.endDate,
-    email: po.email,
-    isAddressInput: po.isAddressInput,
-    isAdvance: po.isAdvance,
-    isAdvancePaid: po.isAdvancePaid,
-    advancePayment: po.advancePayment,
-    deliveryAddress: po.deliveryAddress,
-    contactNo: po.contactNo,
-    tinNo: po.tinNo,
-    vatNo: po.vatNo,
-  };
+    comments:
+    po.comments,
+    requisitionNo:
+    po.requisitionNo,
+    workflowId:
+    po.workflowId,
+    supplierId:
+    po.supplierId,
+    currency:
+    po.currency,
+    shippingAddressId:
+    po.shippingAddressId,
+    billingAddressId:
+    po.billingAddressId,
+    purchaseOrder:
+    po.purchaseOrder,
+    requisitionId:
+    po.requisitionId,
+    workflowAuditId:
+    po.workflowAuditId,
+    taskId:
+    po.taskId,
+    seqFlow:
+    po.seqFlow,
+    auditTrackId:
+    po.auditTrackId,
+    processInstanceId:
+    po.processInstanceId,
+    poFrom:
+    po.poFrom,
+    companyId:
+    po.companyId,
+    dynamicColumns:
+      po.dynamicColumns || '',
+    terms:
+    po.terms,
+    paymentTerms:
+    po.paymentTerms,
+    entityId:
+    po.entityId,
+    entityName:
+    po.entityName,
+    viewId:
+    po.viewId,
+    viewName:
+    po.viewName,
+    requesterId:
+    po.requesterId,
+    parentId:
+    po.parentId,
+    poAmendment:
+    po.poAmendment,
+    discount:
+    po.discount,
+    amendmentEdit:
+    po.amendmentEdit,
+    startDate:
+    po.startDate,
+    endDate:
+    po.endDate,
+    email:
+    po.email,
+    isAddressInput:
+    po.isAddressInput,
+    isAdvance:
+    po.isAdvance,
+    isAdvancePaid:
+    po.isAdvancePaid,
+    advancePayment:
+    po.advancePayment,
+    deliveryAddress:
+    po.deliveryAddress,
+    contactNo:
+    po.contactNo,
+    tinNo:
+    po.tinNo,
+    vatNo:
+    po.vatNo,
+  }
+    ;
 };
 
 const getPO = async (req, res, next) => {
@@ -292,4 +285,4 @@ const updatePO = async (req, res, next) => {
     next(err);
   }
 };
-export { getPO, updatePO };
+export {getPO, updatePO};

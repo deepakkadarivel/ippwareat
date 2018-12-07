@@ -2,7 +2,7 @@ import axios from 'axios';
 import logger from '../logger';
 import constants from '../constants';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://27.34.240.158:8088/SCM/api/';
 
 const url = `${BASE_URL}${constants.url.PICK_UP}`;
 
@@ -123,7 +123,7 @@ const parsePickUp = pickUp => {
         rowsMax: 4
       }
     ],
-    pickUpLineItems: pickUp.pickUpItem.pickUpLineItems.map((x, y) => {
+    pickUpLineItems: !pickUp.pickUpItem ? [] : pickUp.pickUpItem.pickUpLineItems.map((x, y) => {
       return {
         header: x.itemDescription,
         lineItemId: x.pickUpLineItemId,
@@ -133,19 +133,7 @@ const parsePickUp = pickUp => {
         newItem: x.isLinked === 'N' ? x.itemDescription : '',
       };
     }),
-    footer: [
-      {
-        label: 'Comments',
-        id: 'comments',
-        name: 'comments',
-        maxlength: '50',
-        placeholder: 'Comments',
-        type: 'textArea',
-        value: pickUp.comments,
-        readOnly: true,
-        variant: 'outlined'
-      }
-    ],
+    comments: pickUp.comments,
     pickUpItemId: pickUp.pickUpItemId,
     assetId: pickUp.assetId,
     workflowAuditId: pickUp.workflowAuditId,
@@ -155,11 +143,11 @@ const parsePickUp = pickUp => {
     processInstanceId: pickUp.processInstanceId,
     pickUpItemRequestNo: pickUp.pickUpItemRequestNo,
     workflowId: pickUp.workflowId,
-    wareHouse: pickUp.pickUpItem.wareHouse,
+    wareHouse: pickUp.pickUpItem ? pickUp.pickUpItem.wareHouse : '',
     needDate: pickUp.needDate,
     returnDate: pickUp.returnDate,
     companyId: pickUp.companyId,
-    dynamicColumns: pickUp.pickUpItem.dynamicColumns,
+    dynamicColumns: pickUp.pickUpItem ? pickUp.pickUpItem.dynamicColumns : '',
     entityId: pickUp.entityId,
     entityName: pickUp.entityName,
     viewId: pickUp.viewId,
