@@ -6,6 +6,7 @@ export default {
     PO: 'mpurchase',
     PICK_UP: 'minventory',
     INVOICE: 'minvoice',
-    ASSET: 'minventory'
+    ASSET: 'minventory',
+    ENTITY_DETAILS: 'madvance',
   }
 };

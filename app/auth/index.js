@@ -2,7 +2,7 @@ import axios from 'axios';
 import logger from '../logger';
 import constants from '../constants';
 
-const BASE_URL = 'http://27.34.240.158:8088/SCM/api/';
+const BASE_URL = process.env.BASE_URL;
 
 const url = `${BASE_URL}/auth`;
 
@@ -12,6 +12,7 @@ const parseAuth = response => {
   const loadBalancer = headers[2];
 
   const data = response.data;
+  console.log(data);
   const user = {
     emailId: data.user.contactDetail.emailId,
     firstName: data.user.contactDetail.firstName,
@@ -27,8 +28,11 @@ const parseAuth = response => {
         name: org.organization.name,
         orgCurrency: org.organization.orgCurrency
       };
-    })
+    }),
   };
+  const entityList = data.entityList.map(entity => {
+    return {entityId: entity.entityId, entityName: entity.entityName}
+  });
   const alias = {
     viewAlias: data.currentOrganization.viewAlias || 'View',
     entityAlias: data.currentOrganization.entityAlias || 'Entity'
@@ -38,15 +42,16 @@ const parseAuth = response => {
     cookie,
     loadBalancer,
     user,
-    alias
+    alias,
+    entityList,
   };
 };
 
 const login = async (req, res, next) => {
   logger.info(`${req.originalUrl} - ${req.method} - ${req.ip}`);
   try {
-    const { userName, password } = req.body;
-    const response = await axios.post(url, { userName, password });
+    const {userName, password} = req.body;
+    const response = await axios.post(url, {userName, password});
     if (!response.data.user) {
       let err = new Error(constants.INVALID_USER);
       err.status = 401;
