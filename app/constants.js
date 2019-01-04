@@ -8,5 +8,6 @@ export default {
     INVOICE: 'minvoice',
     ASSET: 'minventory',
     ENTITY_DETAILS: 'madvance',
+    EXPENSE_GRID: 'madvance',
   }
 };

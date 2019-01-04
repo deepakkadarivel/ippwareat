@@ -123,7 +123,7 @@ const parsePickUp = pickUp => {
         rowsMax: 4
       }
     ],
-    pickUpLineItems: !pickUp.pickUpItem ? [] : pickUp.pickUpItem.pickUpLineItems.map((x, y) => {
+    pickUpLineItems: !pickUp.pickUpItem ? [] : pickUp.pickUpItem.pickUpLineItems.map(x => {
       return {
         header: x.itemDescription,
         lineItemId: x.pickUpLineItemId,

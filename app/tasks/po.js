@@ -10,7 +10,7 @@ const parsePo = po => {
   return {
     header: [
       {
-        label: 'Chrome_Entity',
+        label: 'Entity',
         id: 'entityName',
         name: 'entityName',
         maxlength: '50',
@@ -20,7 +20,7 @@ const parsePo = po => {
         readOnly: true
       },
       {
-        label: 'Chrome_View',
+        label: 'View',
         id: 'viewName',
         name: 'viewName',
         maxlength: '50',
@@ -116,7 +116,7 @@ const parsePo = po => {
 
       }
     ],
-    poLineItems: po.poLineItems.map((x, y) => {
+    poLineItems: po.poLineItems.map(x => {
       return {
         header: x.itemDescription,
         lineItemId: x.poLineItemId,
