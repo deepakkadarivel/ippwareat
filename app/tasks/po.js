@@ -8,117 +8,24 @@ const url = `${BASE_URL}${constants.url.PO}`;
 
 const parsePo = po => {
   return {
-    header: [
-      {
-        label: 'Entity',
-        id: 'entityName',
-        name: 'entityName',
-        maxlength: '50',
-        placeholder: 'Entity',
-        type: 'text',
-        value: po.entityName,
-        readOnly: true
-      },
-      {
-        label: 'View',
-        id: 'viewName',
-        name: 'viewName',
-        maxlength: '50',
-        placeholder: 'View',
-        type: 'text',
-        value: po.viewName,
-        readOnly: true
-      },
-      {
-        label: 'Type',
-        id: 'poFromLabel',
-        name: 'poFromLabel',
-        maxlength: '50',
-        placeholder: 'Type',
-        type: 'text',
-        value: po.poFromLabel,
-        readOnly: true
-      },
-      {
-        label: 'PO Request #',
-        id: 'requisitionNo',
-        name: 'requisitionNo',
-        maxlength: '50',
-        placeholder: 'PO Request #',
-        type: 'text',
-        value: po.requisitionNo,
-        readOnly: true
-      },
-      {
-        label: 'Reference PO #',
-        id: 'poNumber',
-        name: 'poNumber',
-        maxlength: '50',
-        placeholder: 'PO #',
-        type: 'text',
-        value: po.poNumber,
-        readOnly: true
-      },
-      {
-        label: 'Workflow',
-        id: 'workflowName',
-        name: 'workflowName',
-        maxlength: '50',
-        placeholder: 'Workflow',
-        type: 'text',
-        value: po.workflowName,
-        readOnly: true
-      },
-      {
-        label: 'Supplier',
-        id: 'supplierName',
-        name: 'supplierName',
-        maxlength: '50',
-        placeholder: 'Supplier',
-        type: 'text',
-        value: po.supplierName,
-        readOnly: true
-      },
-      {
-        label: 'Currency',
-        id: 'CurrencyCode',
-        name: 'CurrencyCode',
-        maxlength: '50',
-        placeholder: 'Currency',
-        type: 'text',
-        value: po.currencyCode,
-        readOnly: true
-      },
-      {
-        label: 'Billing Address',
-        id: 'billingAddressId',
-        name: 'billingAddressId',
-        type: 'select',
-        value: po.billingAddressId,
-        readOnly: true,
-        options: po.billingAddress ? [{
-          value: po.billingAddress.addressId,
-          label: po.billingAddress.name
-        }] : []
-      },
-      {
-        label: 'Ship To Address',
-        id: 'shippingAddressId',
-        name: 'shippingAddressId',
-        type: 'select',
-        value: po.shippingAddressId,
-        readOnly: true,
-        options: po.shippingAddress ? [{
-          value: po.shippingAddress.addressId,
-          label:
-          po.shippingAddress.name
-        }] : []
-
-      }
-    ],
+    poFromLabel: po.poFromLabel,
+    workflowName: po.workflowName,
+    supplierName: po.supplierName,
+    currencyCode: po.currencyCode,
+    billingAddress: po.billingAddress ? [{
+      value: po.billingAddress.addressId,
+      label: po.billingAddress.name
+    }] : [],
+    shippingAddress: po.shippingAddress ? [{
+      value: po.shippingAddress.addressId,
+      label:
+      po.shippingAddress.name
+    }] : [],
+    header: [],
     poLineItems: po.poLineItems.map(x => {
       return {
-        header: x.itemDescription,
+        itemDescription: x.itemDescription,
+        comments: x.comments,
         lineItemId: x.poLineItemId,
         categoryDesc: x.categoryDesc,
         subCategoryDesc: x.subCategoryDesc,

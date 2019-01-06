@@ -12,7 +12,7 @@ const parseAuth = response => {
   const loadBalancer = headers[2];
 
   const data = response.data;
-  console.log(data);
+  // console.log(data);
   const user = {
     emailId: data.user.contactDetail.emailId,
     firstName: data.user.contactDetail.firstName,
