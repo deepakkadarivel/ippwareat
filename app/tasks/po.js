@@ -7,11 +7,13 @@ const BASE_URL = process.env.BASE_URL;
 const url = `${BASE_URL}${constants.url.PO}`;
 
 const parsePo = po => {
+  logger.info(JSON.stringify(po));
   return {
     poFromLabel: po.poFromLabel,
     workflowName: po.workflowName,
     supplierName: po.supplierName,
     currencyCode: po.currencyCode,
+    addressInput: po.addressInput,
     billingAddress: po.billingAddress ? [{
       value: po.billingAddress.addressId,
       label: po.billingAddress.name
@@ -50,84 +52,45 @@ const parsePo = po => {
         subCategoryId: x.items.subCategoryId,
       };
     }),
-    comments:
-    po.comments,
-    requisitionNo:
-    po.requisitionNo,
-    workflowId:
-    po.workflowId,
-    supplierId:
-    po.supplierId,
-    currency:
-    po.currency,
-    shippingAddressId:
-    po.shippingAddressId,
-    billingAddressId:
-    po.billingAddressId,
-    purchaseOrder:
-    po.purchaseOrder,
-    requisitionId:
-    po.requisitionId,
-    workflowAuditId:
-    po.workflowAuditId,
-    taskId:
-    po.taskId,
-    seqFlow:
-    po.seqFlow,
-    auditTrackId:
-    po.auditTrackId,
-    processInstanceId:
-    po.processInstanceId,
-    poFrom:
-    po.poFrom,
-    companyId:
-    po.companyId,
-    dynamicColumns:
-      po.dynamicColumns || '',
-    terms:
-    po.terms,
-    paymentTerms:
-    po.paymentTerms,
-    entityId:
-    po.entityId,
-    entityName:
-    po.entityName,
-    viewId:
-    po.viewId,
-    viewName:
-    po.viewName,
-    requesterId:
-    po.requesterId,
-    parentId:
-    po.parentId,
-    poAmendment:
-    po.poAmendment,
-    discount:
-    po.discount,
-    amendmentEdit:
-    po.amendmentEdit,
-    startDate:
-    po.startDate,
-    endDate:
-    po.endDate,
-    email:
-    po.email,
-    isAddressInput:
-    po.isAddressInput,
-    isAdvance:
-    po.isAdvance,
-    isAdvancePaid:
-    po.isAdvancePaid,
-    advancePayment:
-    po.advancePayment,
-    deliveryAddress:
-    po.deliveryAddress,
-    contactNo:
-    po.contactNo,
-    tinNo:
-    po.tinNo,
-    vatNo:
-    po.vatNo,
+    comments: po.comments,
+    requisitionNo: po.requisitionNo,
+    workflowId: po.workflowId,
+    supplierId: po.supplierId,
+    currency: po.currency,
+    shippingAddressId: po.shippingAddressId,
+    billingAddressId: po.billingAddressId,
+    purchaseOrder: po.purchaseOrder,
+    requisitionId: po.requisitionId,
+    workflowAuditId: po.workflowAuditId,
+    taskId: po.taskId,
+    seqFlow: po.seqFlow,
+    auditTrackId: po.auditTrackId,
+    processInstanceId: po.processInstanceId,
+    poFrom: po.poFrom,
+    companyId: po.companyId,
+    dynamicColumns: po.dynamicColumns || '',
+    terms: po.terms,
+    paymentTerms: po.paymentTerms,
+    entityId: po.entityId,
+    entityName: po.entityName,
+    viewId: po.viewId,
+    viewName: po.viewName,
+    requesterId: po.requesterId,
+    parentId: po.parentId,
+    poAmendment: po.poAmendment,
+    discount: po.discount,
+    amendmentEdit: po.amendmentEdit,
+    startDate: po.startDate,
+    endDate: po.endDate,
+    email: po.email,
+    isAddressInput: po.isAddressInput,
+    isAdvance: po.isAdvance,
+    isAdvancePaid: po.isAdvancePaid,
+    advancePayment: po.advancePayment,
+    deliveryAddress: po.deliveryAddress,
+    contactNo: po.contactNo,
+    tinNo: po.tinNo,
+    vatNo: po.vatNo,
   }
     ;
 };
@@ -144,9 +107,7 @@ const getPO = async (req, res, next) => {
         Cookie: cookie
       }
     };
-
     const response = await axios.post(url, payload, config);
-
     if (!response.data) {
       let err = new Error(constants.INVALID_USER);
       err.status = 401;
