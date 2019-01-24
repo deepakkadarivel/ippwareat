@@ -7,7 +7,6 @@ const BASE_URL = process.env.BASE_URL;
 const url = `${BASE_URL}${constants.url.PO}`;
 
 const parsePo = po => {
-  logger.info(JSON.stringify(po));
   return {
     poFromLabel: po.poFromLabel,
     workflowName: po.workflowName,
@@ -133,7 +132,7 @@ const updatePO = async (req, res, next) => {
       headers: {
         name: 'content-type',
         value: 'application/x-www-form-urlencoded',
-        Cookie: cookie
+        Cookie: cookie,
       }
     };
 

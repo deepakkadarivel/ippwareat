@@ -7,6 +7,7 @@ const BASE_URL = process.env.BASE_URL;
 const url = `${BASE_URL}${constants.url.INVOICE}`;
 
 const parseInvoice = invoice => {
+  // logger.info(JSON.stringify(invoice));
   return {
     header: [
       {
@@ -196,7 +197,7 @@ const updateInvoice = async (req, res, next) => {
       headers: {
         name: 'content-type',
         value: 'application/x-www-form-urlencoded',
-        Cookie: cookie
+        Cookie: cookie,
       }
     };
 

@@ -8,11 +8,13 @@ const url = `${BASE_URL}/auth`;
 
 const parseAuth = response => {
   const headers = response.headers['set-cookie'];
-  const cookie = headers[0];
+  logger.info(headers);
+
+  const cookie = headers;
+  // const cookie = headers[0];
   const loadBalancer = headers[2];
 
   const data = response.data;
-  // console.log(data);
   const user = {
     emailId: data.user.contactDetail.emailId,
     firstName: data.user.contactDetail.firstName,
